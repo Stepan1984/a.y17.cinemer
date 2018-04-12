@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         // говорим, чтобы элементы отображались в виде ЛИНЕЙНОГО списка
         recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
-
     }
 
 }
