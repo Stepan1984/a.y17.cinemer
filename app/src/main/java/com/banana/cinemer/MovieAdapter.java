@@ -49,9 +49,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         // и записываем его в текстовое поле
         holder.titleTextView.setText(title);
         // TODO испльзовать MOVIES_POSTER и Glide для загрузки картинок
-        // в ImageView для постера устанавливаем фон рандомного цвета
-        final int randomColor = (int)(Math.random() * 0x1000000) + 0xFF000000;
-        holder.posterImageView.setBackgroundColor(randomColor);
     }
 
     /**
