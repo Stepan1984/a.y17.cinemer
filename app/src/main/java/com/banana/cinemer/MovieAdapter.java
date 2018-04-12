@@ -1,6 +1,7 @@
 package com.banana.cinemer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +13,6 @@ import android.view.ViewGroup;
 import java.util.Random;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
-
-    static final String[] MOVIES_TITLES = new String[]{"Coco", "Star Wars: The Last Jedi", "Ready Player One", "Black Panther"};
-    static final String[] MOVIES_POSTERS = new String[]{"/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg"};
 
     Context context;
 
@@ -43,12 +41,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
      * Метод заполняет элемент списка (holder) фильмом, стоящим на позиции (position).
      */
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieViewHolder holder, final int position) {
         // получаем заголовок фильма
-        String title = MOVIES_TITLES[position];
+        String title = Database.MOVIES[position].title;
         // и записываем его в текстовое поле
         holder.titleTextView.setText(title);
+        // и постер ещё в ImageView для постера
         // TODO испльзовать MOVIES_POSTER и Glide для загрузки картинок
+        final int randomColor = 0xFF000000 + (int) (Math.random() * 0x01000000);
+        holder.posterImageView.setBackgroundColor(randomColor);
+
+        // подписываюсь на клики по элементам списка
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // получаю выбранный фильм
+                Movie movie = Database.MOVIES[position];
+                // передаю его в метод startMovieActivity
+                startMovieActivity(movie);
+            }
+        });
     }
 
     /**
@@ -56,7 +68,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
      */
     @Override
     public int getItemCount() {
-        return MOVIES_TITLES.length;
+        return Database.MOVIES.length;
+    }
+
+    /**
+     * Метод стартует активность с подробной информацией по фильму movie.
+     */
+    private void startMovieActivity(Movie movie) {
+        Intent intent = new Intent(context, MovieActivity.class);
+        intent.putExtra("MOVIE", movie);
+        context.startActivity(intent);
     }
 
 }
