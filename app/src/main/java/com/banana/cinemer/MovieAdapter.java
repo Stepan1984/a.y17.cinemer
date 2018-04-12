@@ -1,12 +1,15 @@
 package com.banana.cinemer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Random;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
@@ -37,17 +40,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     }
 
     /**
-     * Метод заполняет коробочку (holder) фильмом, стоящим на позиции (position).
+     * Метод заполняет элемент списка (holder) фильмом, стоящим на позиции (position).
      */
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        // получаем "фильм"
+        // получаем заголовок фильма
         String title = MOVIES_TITLES[position];
-        // заполняем ViewHolder
+        // и записываем его в текстовое поле
         holder.titleTextView.setText(title);
-        Glide.with(context)
-                .from("pic.com" + MOVIES_POSTERS[position])
-                .into(holder.posterImageView);
+        // TODO испльзовать MOVIES_POSTER и Glide для загрузки картинок
+        // в ImageView для постера устанавливаем фон рандомного цвета
+        final int randomColor = (int)(Math.random() * 0x1000000) + 0xFF000000;
+        holder.posterImageView.setBackgroundColor(randomColor);
     }
 
     /**
@@ -55,7 +59,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
      */
     @Override
     public int getItemCount() {
-        // вернуть количество
         return MOVIES_TITLES.length;
     }
 

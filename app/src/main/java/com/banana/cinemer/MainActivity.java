@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // просто сохраняем активность в переменную, чтобы понятно было что активность = контекст
         Context context = MainActivity.this;
         // создаём адаптер (передаём ему контект)
         MovieAdapter adapter = new MovieAdapter(context);
