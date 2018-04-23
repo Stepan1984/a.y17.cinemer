@@ -56,7 +56,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             @Override
             public void onClick(View v) {
                 // получаю выбранный фильм
-                Movie movie = Database.MOVIES[position];
+                Movie movie = Database.CARDS[position];
                 // передаю его в метод startMovieActivity
                 startMovieActivity(movie);
             }
@@ -76,7 +76,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
      */
     private void startMovieActivity(Movie movie) {
         Intent intent = new Intent(context, MovieActivity.class);
-        intent.putExtra("MOVIE", movie);
+        intent.putExtra("CARD", movie);
         context.startActivity(intent);
     }
 

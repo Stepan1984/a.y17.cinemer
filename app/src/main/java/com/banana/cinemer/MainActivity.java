@@ -13,17 +13,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // просто сохраняем активность в переменную, чтобы понятно было что активность = контекст
-        Context context = MainActivity.this;
-        // создаём адаптер (передаём ему контект)
-        MovieAdapter adapter = new MovieAdapter(context);
-        // находим RV
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        // присоединяем к нему адаптер
-        recyclerView.setAdapter(adapter);
-        // говорим, чтобы элементы отображались в виде ЛИНЕЙНОГО списка
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
     }
 
 }
