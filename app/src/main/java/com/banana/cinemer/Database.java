@@ -1,3 +1,5 @@
+package com.banana.cinemer;
+
 /**
  * Класс для хранения данных.
  */

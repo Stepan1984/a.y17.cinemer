@@ -25,7 +25,7 @@ public class MoviesFragment extends Fragment {
         // просто сохраняем активность в переменную, чтобы понятно было что активность = контекст
         Context context = getContext();
         // создаём адаптер (передаём ему контект)
-        MovieAdapter adapter = new MovieAdapter(context);
+        MovieAdapter adapter = new MovieAdapter((MainActivity) getActivity());
         // находим RV
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         // присоединяем к нему адаптер

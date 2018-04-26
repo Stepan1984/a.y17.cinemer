@@ -2,22 +2,19 @@ package com.banana.cinemer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Random;
-
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
-    Context context;
+    MainActivity activity;
 
-    public MovieAdapter(Context context) {
-        this.context = context;
+    public MovieAdapter(MainActivity activity) {
+        this.activity = activity;
     }
 
     /**
@@ -27,7 +24,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // создаём создавалку вьюшек
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        LayoutInflater layoutInflater = LayoutInflater.from(activity);
         // создаём вьюшку (пока простую, с одним текстовым полем)
         // false означает, что она просто создаётся, но не добавляет к parent
         View view = layoutInflater.inflate(R.layout.layout_movie_item, parent, false);
@@ -56,9 +53,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             @Override
             public void onClick(View v) {
                 // получаю выбранный фильм
-                Movie movie = Database.CARDS[position];
-                // передаю его в метод startMovieActivity
-                startMovieActivity(movie);
+                Movie movie = Database.MOVIES[position];
+                // передаю его в метод showMovieFragment
+                showMovieFragment(movie);
             }
         });
     }
@@ -72,12 +69,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     }
 
     /**
-     * Метод стартует активность с подробной информацией по фильму movie.
+     * Метод поменяет основной фрагмент на фрагмент с подробной информацией по фильму movie.
      */
-    private void startMovieActivity(Movie movie) {
-        Intent intent = new Intent(context, MovieActivity.class);
-        intent.putExtra("CARD", movie);
-        context.startActivity(intent);
+    private void showMovieFragment(Movie movie) {
+        FragmentManager manager = activity.getSupportFragmentManager();
+        MovieFragment fragment = new MovieFragment();
+        manager.beginTransaction().replace(R.id.fragments_container, fragment, null).commit();
+//        intent.putExtra("CARD", movie);
     }
 
 }
