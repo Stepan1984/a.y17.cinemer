@@ -40,7 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, final int position) {
         // получаем заголовок фильма
-        String title = Database.MOVIES[position].title;
+        String title = Database.MOVIES.get(position).title;
         // и записываем его в текстовое поле
         holder.titleTextView.setText(title);
         // и постер ещё в ImageView для постера
@@ -53,7 +53,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             @Override
             public void onClick(View v) {
                 // получаю выбранный фильм
-                Movie movie = Database.MOVIES[position];
+                Movie movie = Database.MOVIES.get(position);
                 // передаю его в метод showMovieFragment
                 showMovieFragment(movie);
             }
@@ -65,7 +65,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
      */
     @Override
     public int getItemCount() {
-        return Database.MOVIES.length;
+        return Database.MOVIES.size();
     }
 
     /**

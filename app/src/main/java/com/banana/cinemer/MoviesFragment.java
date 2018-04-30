@@ -11,7 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 public class MoviesFragment extends Fragment {
+
+    MovieAdapter adapter;
 
     @Nullable
     @Override
@@ -25,7 +31,7 @@ public class MoviesFragment extends Fragment {
         // просто сохраняем активность в переменную, чтобы понятно было что активность = контекст
         Context context = getContext();
         // создаём адаптер (передаём ему контект)
-        MovieAdapter adapter = new MovieAdapter((MainActivity) getActivity());
+        adapter = new MovieAdapter((MainActivity) getActivity());
         // находим RV
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         // присоединяем к нему адаптер
@@ -36,5 +42,23 @@ public class MoviesFragment extends Fragment {
         // возвращаем её
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(Database.OnMovieChangedEvent event) {
+        adapter.notifyDataSetChanged();
+    };
+
 
 }
