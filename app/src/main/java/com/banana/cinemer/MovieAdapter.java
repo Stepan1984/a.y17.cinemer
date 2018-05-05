@@ -72,10 +72,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
      * Метод поменяет основной фрагмент на фрагмент с подробной информацией по фильму movie.
      */
     private void showMovieFragment(Movie movie) {
+        // получаем из активности менеджер фрагментов
         FragmentManager manager = activity.getSupportFragmentManager();
-        MovieFragment fragment = new MovieFragment();
+        // создаём фрагмент и сразу передаём ему фильм, который нужно отобразить
+        MovieFragment fragment = new MovieFragment(movie);
+        // меняем главный фрагмент на фрагмент с фильмом
         manager.beginTransaction().replace(R.id.fragments_container, fragment, null).commit();
-//        intent.putExtra("CARD", movie);
     }
 
 }

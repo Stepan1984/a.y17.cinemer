@@ -1,6 +1,5 @@
 package com.banana.cinemer;
 
-import android.app.DownloadManager;
 import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
@@ -10,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.Call;
@@ -23,9 +23,14 @@ import okhttp3.Response;
  */
 public class Database {
 
+    // ссылочка, по которой можно получить данные
     public static final String DATA_URL = "http://api.themoviedb.org/3/movie/popular?api_key=795d87bfa31bd215fc78ae4423e39543";
+    // массив (список) с данными
     public static final List<Movie> MOVIES = new ArrayList<>();
 
+    /**
+     * Запуск операции получения данных из интернета и заполнения ими базы данных.
+     */
     public static void load() {
         // создаём запрос
         Request request = new Request.Builder()
@@ -50,7 +55,27 @@ public class Database {
     }
 
     /**
-     * Метод парсит строку data и наполняет базу данных из неё фильмами.
+     * Запуск операции заполнения базы данных тестовыми данными.
+     */
+    public static void loadTest() {
+        Movie[] testMovies = {
+                new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
+                , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
+                , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
+                , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")
+                , new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
+                , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
+                , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
+                , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")
+                , new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
+                , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
+                , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
+                , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")};
+        Collections.addAll(MOVIES, testMovies);
+    }
+
+    /**
+     * Запуск операции парсинга строки data (превращения из строки в объекты типа Movie).
      */
     public static void parse(String data) {
         try {
@@ -69,24 +94,9 @@ public class Database {
         }
     }
 
-    public static class OnMovieChangedEvent {
-
-    }
-
-//    // временная переменная для хранения тестовых данных
-//    public static final Movie[] MOVIES = {
-//            new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
-//            , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
-//            , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
-//            , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")
-//            , new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
-//            , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
-//            , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
-//            , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")
-//            , new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
-//            , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
-//            , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
-//            , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")
-//    };
+    /**
+     * Класс события внесения в базу данных изменений.
+     */
+    public static class OnMovieChangedEvent {}
 
 }

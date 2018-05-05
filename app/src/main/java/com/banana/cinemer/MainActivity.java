@@ -14,7 +14,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Database.load();
+        // запускаем загрузку данных
+        Database.loadTest();
+
+        if (savedInstanceState == null) { // если запускаем в первый раз активность,
+            // то устанавливаем у неё главный фрагмент в качестве основного
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragments_container, new MoviesFragment())
+                    .commit();
+        }
     }
 
 }

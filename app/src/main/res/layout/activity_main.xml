@@ -12,11 +12,10 @@
         android:layout_height="match_parent"
         >
 
-        <fragment
+        <FrameLayout
             android:id="@+id/fragments_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="com.banana.cinemer.MoviesFragment" />
+            android:layout_height="match_parent" />
     </FrameLayout>
 
     <LinearLayout

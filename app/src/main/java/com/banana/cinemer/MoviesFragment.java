@@ -46,17 +46,21 @@ public class MoviesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        // регистрируем фрагмент на события EventBus
         EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        // отписываем фрагмент от событий EventBus
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(Database.OnMovieChangedEvent event) {
+        // если получили событие изменения базы данных - рассказываем об этом адаптеру,
+        // чтобы он обновил список
         adapter.notifyDataSetChanged();
     };
 

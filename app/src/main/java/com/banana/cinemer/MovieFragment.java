@@ -1,5 +1,6 @@
 package com.banana.cinemer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+@SuppressLint("ValidFragment")
 public class MovieFragment extends Fragment {
+
+    Movie movie; // фильм, который этот фрагмент должен отобразить
+
+    public MovieFragment(Movie movie) {
+        this.movie = movie; // сохраняем фильм, чтобы потом его отобразить
+    }
 
     @Nullable
     @Override
@@ -21,7 +29,10 @@ public class MovieFragment extends Fragment {
         // создаём вьюху
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
 
-        // потом нужно будет настроить
+        // потом нужно будет настроить;
+        // здесь, например, просто меняем титл тулбара на название фильма
+        final MainActivity activity = (MainActivity) getActivity();
+        activity.getSupportActionBar().setTitle(movie.title);
 
         // возвращаем её
         return view;
