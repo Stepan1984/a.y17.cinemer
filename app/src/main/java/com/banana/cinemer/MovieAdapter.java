@@ -1,6 +1,5 @@
 package com.banana.cinemer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -11,10 +10,10 @@ import android.view.ViewGroup;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
-    MainActivity activity;
+    MainActivity activity; // главная активность
 
     public MovieAdapter(MainActivity activity) {
-        this.activity = activity;
+        this.activity = activity; // сохраняем главную активность (потом нужна будет)
     }
 
     /**
@@ -54,8 +53,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             public void onClick(View v) {
                 // получаю выбранный фильм
                 Movie movie = Database.MOVIES.get(position);
-                // передаю его в метод showMovieFragment
-                showMovieFragment(movie);
+                // передаю его в метод showMovieActivity
+                showMovieActivity(movie);
             }
         });
     }
@@ -69,15 +68,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     }
 
     /**
-     * Метод поменяет основной фрагмент на фрагмент с подробной информацией по фильму movie.
+     * Метод покажет новую активность с подробной информацией по фильму movie.
      */
-    private void showMovieFragment(Movie movie) {
-        // получаем из активности менеджер фрагментов
-        FragmentManager manager = activity.getSupportFragmentManager();
-        // создаём фрагмент и сразу передаём ему фильм, который нужно отобразить
-        MovieFragment fragment = new MovieFragment(movie);
-        // меняем главный фрагмент на фрагмент с фильмом
-        manager.beginTransaction().replace(R.id.fragments_container, fragment, null).commit();
+    private void showMovieActivity(Movie movie) {
+        Intent intent = new Intent(activity, MovieActivity.class);
+        intent.putExtra("MOVIE", movie);
+        activity.startActivity(intent);
     }
 
 }
