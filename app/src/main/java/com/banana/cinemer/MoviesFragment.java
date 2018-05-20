@@ -64,5 +64,4 @@ public class MoviesFragment extends Fragment {
         adapter.notifyDataSetChanged();
     };
 
-
 }

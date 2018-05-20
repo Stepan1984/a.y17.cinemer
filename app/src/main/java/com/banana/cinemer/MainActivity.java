@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // запускаем загрузку данных
-        Database.loadTest();
+        Database.load();
 
         if (savedInstanceState == null) { // если запускаем в первый раз активность,
             // то устанавливаем у неё главный фрагмент в качестве основного
