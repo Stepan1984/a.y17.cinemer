@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // запускаем загрузку данных
-        Database.loadTest();
+        Database.load();
 
         // наполняем содержимым
         // просто сохраняем активность в переменную, чтобы понятно было что активность = контекст

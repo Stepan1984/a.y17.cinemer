@@ -55,42 +55,26 @@ public class Database {
     }
 
     /**
-     * Запуск операции заполнения базы данных тестовыми данными.
-     */
-    public static void loadTest() {
-        Movie[] testMovies = {
-                new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
-                , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
-                , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
-                , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")
-                , new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
-                , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
-                , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
-                , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")
-                , new Movie("Coco", "/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg")
-                , new Movie("Star Wars: The Last Jedi", "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg")
-                , new Movie("Ready Player One", "/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg")
-                , new Movie("Black Panther", "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg")};
-        Collections.addAll(MOVIES, testMovies);
-    }
-
-    /**
      * Запуск операции парсинга строки data (превращения из строки в объекты типа Movie).
      */
     public static void parse(String data) {
         try {
+            // получаем из строки data объект класса JSONObject, упрощающий парсинг
             JSONObject object = new JSONObject(data);
+            // получаем массив c информацией по фильмам по ключу `results`
             JSONArray results = object.getJSONArray("results");
+            // запускаем цикл
             for (int i = 0; i < results.length(); ++i) {
+                // получаем информацию по фильму, который стоит на позиции i
                 JSONObject film = results.getJSONObject(i);
-                String title = film.getString("title");
-                String posterPath = film.getString("poster_path");
-                Movie movie = new Movie(title, posterPath);
-                MOVIES.add(movie);
+                String title = film.getString("title"); // получаем название
+                String posterPath = film.getString("poster_path"); // и постер
+                Movie movie = new Movie(title, posterPath); // создаём фильм по названию и постеру
+                MOVIES.add(movie); // сохраняем = добавляем в MOVIES
             }
             EventBus.getDefault().post(new OnMovieChangedEvent());
         } catch (JSONException e) {
-            Log.e("AHAH", "ERROR!", e);
+            Log.e("Database", "Ошибка: ", e);
         }
     }
 
